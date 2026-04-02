@@ -2,6 +2,8 @@
 
 A production-quality backend API for a finance dashboard system with user management, financial records CRUD, dashboard analytics, and role-based access control.
 
+**🟢 Live API Documentation & Demo:** [https://data-processing-and-access-control.onrender.com/api-docs/](https://data-processing-and-access-control.onrender.com/api-docs/)
+
 ## Table of Contents
 
 - [Technology Stack](#technology-stack)
