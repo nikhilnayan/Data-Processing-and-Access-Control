@@ -7,6 +7,7 @@ A production-quality backend API for a finance dashboard system with user manage
 - [Technology Stack](#technology-stack)
 - [Architecture](#architecture)
 - [Quick Start](#quick-start)
+- [How to Use](#how-to-use)
 - [API Documentation](#api-documentation)
 - [Authentication](#authentication)
 - [Role-Based Access Control](#role-based-access-control)
@@ -140,6 +141,61 @@ The database is automatically seeded with these accounts:
 | **Admin** | admin@example.com | admin123 |
 | **Analyst** | analyst@example.com | analyst123 |
 | **Viewer** | viewer@example.com | viewer123 |
+
+---
+
+## How to Use
+
+You can run this project and thoroughly test all its features in two ways: **Automated Testing** (which checks every function automatically) and **Manual Testing** (using the interactive Swagger Documentation in your browser).
+
+### 1. Automated Testing (Checks all code logic)
+The project includes a comprehensive set of 56 integration tests that automatically verify every API endpoint, database interaction, validation rule, and access control permutation.
+
+To run the entire test suite:
+1. Open your terminal in the project directory.
+2. Run the test command:
+   ```bash
+   npm test
+   ```
+   *You will see a green `PASS` output for all 4 test suites (Auth, RBAC, Records, Dashboard), proving that every single function works exactly as intended under various scenarios (success, bad input, unauthorized access, etc.).*
+
+### 2. Manual Testing via Swagger UI (Visual interactive testing)
+The API has built-in interactive documentation (Swagger) that lets you test endpoints directly from your browser without writing any code.
+
+**Start the Server:**
+1. In your terminal, run:
+   ```bash
+   npm run dev
+   ```
+2. The server will start on port 3000. During startup, it automatically creates the SQLite database and seeds it with demo accounts and 20 sample financial records.
+
+**Test Endpoints in Browser:**
+1. Open your browser and go to: **[http://localhost:3000/api-docs](http://localhost:3000/api-docs)**
+2. This is the Swagger UI. You will see sections for Authentication, Users, Financial Records, and Dashboard.
+
+**How to test an endpoint (Example: Get Dashboard Summary):**
+1. **Get an Auth Token:**
+   - Expand the `POST /api/auth/login` endpoint.
+   - Click the `"Try it out"` button on the right.
+   - In the request body, enter the demo admin credentials:
+     ```json
+     {
+       "email": "admin@example.com",
+       "password": "admin123"
+     }
+     ```
+   - Click `"Execute"`.
+   - Scroll down to the response window. You'll see a long string under `token`. Copy this string (without the quotes).
+2. **Authorize Swagger:**
+   - Scroll to the top of the page and click the green `"Authorize"` button.
+   - Paste the token you copied into the `Value` box and click `"Authorize"`, then `"Close"`.
+   *(Now Swagger is authenticated as an Admin).*
+3. **Use the Dashboard Endpoint:**
+   - Scroll down to the Dashboard section and expand `GET /api/dashboard/summary`.
+   - Click `"Try it out"`, then click `"Execute"`.
+   - You will see a success response showing the calculated `total_income`, `total_expenses`, and `net_balance` based on the seeded database records!
+
+You can repeat this process to test creating records, fetching trends, testing RBAC (by logging in as `viewer@example.com` / `viewer123` and trying to create a record—it will be blocked!), and more.
 
 ---
 
